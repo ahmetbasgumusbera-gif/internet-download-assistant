@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { margin: 0; width: 290px; padding: 16px; background: #0c0d16; color: #e8eaf6;
+           font: 13px 'Segoe UI', Roboto, Arial, sans-serif; }
+    h1 { margin: 0 0 12px; font-size: 15px; background: linear-gradient(90deg, #c4b5fd, #22d3ee);
+         -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .status { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; color: #8c92b8; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #5d6289; }
+    .dot.on { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+    label.row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; cursor: pointer; }
+    .port { display: flex; align-items: center; justify-content: space-between; color: #8c92b8; }
+    input[type=number] { width: 80px; padding: 6px 8px; border-radius: 8px; border: 1px solid #252944;
+                         background: #141626; color: #e8eaf6; }
+    button { margin-top: 14px; width: 100%; padding: 8px; border-radius: 10px; border: 1px solid #363c63;
+             background: transparent; color: #c4b5fd; cursor: pointer; font: inherit; }
+    button:hover { background: #1b1e33; }
+    .update { margin: -6px 0 12px; padding: 8px 10px; border-radius: 10px; font-size: 12px; line-height: 1.4;
+              background: rgba(251, 191, 36, .12); border: 1px solid rgba(251, 191, 36, .45); color: #fbbf24; }
+    .result { margin-top: 8px; min-height: 16px; font-size: 12px; color: #aab0d4; }
+    .hint { margin-top: 12px; font-size: 11px; color: #5d6289; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <h1>İnternet Download Assistant <span id="version" style="font-size:11px;color:#5d6289"></span></h1>
+  <div class="status"><span class="dot" id="dot"></span><span id="status">Kontrol ediliyor…</span></div>
+  <div class="update" id="update" style="display:none"></div>
+  <label class="row"><input type="checkbox" id="enabled"> İndirmeleri yakala</label>
+  <label class="row"><input type="checkbox" id="autoLaunch"> Kapalıysa uygulamayı otomatik aç</label>
+  <label class="row" title="Uygulama bir indirmeyi sunucu engeli (HTTP 403 vb.) yüzünden indiremezse aynı adres tarayıcıya indirtilir."><input type="checkbox" id="browserFallback"> Engellenen indirmeyi tarayıcıya devret</label>
+  <label class="row" title="Üyelere özel, özel ve yaş sınırlı YouTube videoları için oturum çerezleri uygulamaya (yalnızca bu bilgisayara) gönderilir."><input type="checkbox" id="shareYoutubeCookies"> YouTube oturumunu uygulamayla paylaş</label>
+  <label class="row" title="Kapalıyken PDF, resim, ses, video, txt gibi tarayıcıda açılan dosyalara tıklamak onları olağan şekilde açar. Açıksa bunlar da uygulamaya yönlendirilir."><input type="checkbox" id="captureViewable"> Tarayıcıda açılan dosyaları da yakala (pdf, resim, ses, video…)</label>
+  <div class="port"><span>Sunucu portu</span><input type="number" id="port" min="1024" max="65535"></div>
+  <label class="row" title="Sitelerde oynatılan videoları algılar ve sağ altta küçük bir indirme kutusu gösterir."><input type="checkbox" id="sniffVideos"> Sitelerdeki videoları algıla</label>
+  <button id="collectLinks">Bu sayfadaki dosya bağlantılarını topla</button>
+  <div class="result" id="linksResult"></div>
+  <button id="findVideos">Bu sayfadaki videoları bul</button>
+  <div class="result" id="findResult"></div>
+  <button id="show">YouTube kutusunu göster</button>
+  <div class="result" id="showResult"></div>
+  <div class="hint">Uygulama kapalıyken indirmeler tarayıcıda normal şekilde yapılır.
+    Bir bağlantıya sağ tıklayıp “İnternet Download Assistant ile indir” de seçebilirsin.</div>
+  <script src="popup.js"></script>
+</body>
+</html>
